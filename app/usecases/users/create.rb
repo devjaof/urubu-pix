@@ -1,0 +1,20 @@
+# frozen_string_literal: true
+
+require './app/model/user'
+require './app/adapters/repositories/user.repository'
+
+module User
+  class Create
+    def initialize(params:, user: User, user_repository: UserRepository)
+      @params = params
+      @user = user
+      @user_repository = user_repository
+    end
+
+    def call
+      user = @user.new(@params[:name])
+      @user_repository.create(name: user.name)
+
+    end
+  end
+end
